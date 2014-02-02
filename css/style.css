@@ -1570,6 +1570,7 @@ section.comment {
 .categorieslist li a {
   display: block;
   padding: 0.5em 5%;
+  color: #800040;
 }
 .categorieslist li a:hover {
   color: #039;
@@ -1601,6 +1602,7 @@ section.comment {
   display: block;
   margin: 0.3125em;
   padding: 0.125em 0.3125em;
+  color: #800040;
   background: #dbdbdb;
 }
 .tagslist ul li a:hover {
@@ -1662,6 +1664,7 @@ section.comment {
 }
 .archiveslist li a {
   padding: 0.5em;
+  color: #800040;
 }
 .archiveslist li a:hover {
   color: #039;
@@ -1710,6 +1713,7 @@ section.comment {
   padding: 0.2em;
   display: block;
   float: left;
+  color: #800040;
 }
 .tagcloudlist .tagcloudlist a:hover {
   color: #039;
@@ -1744,6 +1748,7 @@ section.comment {
   line-height: 1.5;
   display: block;
   padding: 0 3%;
+  color: #800040;
 }
 .linkslist ul a:hover {
   color: #039;
