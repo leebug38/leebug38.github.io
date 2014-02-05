@@ -4,7 +4,7 @@
   <subtitle><![CDATA[听潮起又潮落，看花开又花谢]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://leebug38.github.io/"/>
-  <updated>2014-02-05T08:13:15.248Z</updated>
+  <updated>2014-02-05T09:58:17.793Z</updated>
   <id>http://leebug38.github.io/</id>
   
   <author>
@@ -13,36 +13,5 @@
   </author>
   
   <generator uri="http://zespia.tw/hexo/">Hexo</generator>
-  
-  <entry>
-    <title><![CDATA[I can write]]></title>
-    <link href="http://leebug38.github.io/2014/02/01/i-can-write/"/>
-    <id>http://leebug38.github.io/2014/02/01/i-can-write/</id>
-    <published>2014-02-01T08:02:10.000Z</published>
-    <updated>2014-02-01T08:03:44.000Z</updated>
-    <content type="html"><![CDATA[]]></content>
-    
-    
-      <category term="python" scheme="http://leebug38.github.io/tags/python/"/>
-    
-      <category term="node" scheme="http://leebug38.github.io/tags/node/"/>
-    
-      <category term="life" scheme="http://leebug38.github.io/categories/life/"/>
-    
-      <category term="work" scheme="http://leebug38.github.io/categories/life/work/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[Hello World]]></title>
-    <link href="http://leebug38.github.io/2014/02/01/hello-world/"/>
-    <id>http://leebug38.github.io/2014/02/01/hello-world/</id>
-    <published>2014-02-01T07:53:56.000Z</published>
-    <updated>2014-02-01T07:53:57.000Z</updated>
-    <content type="html"><![CDATA[<p>Welcome to <a href="http://zespia.tw/hexo" target="_blank">Hexo</a>! This is your very first post. Check <a href="http://zespia.tw/hexo/docs" target="_blank">documentation</a> to learn how to use.</p>
-]]></content>
-    
-    
-  </entry>
   
 </feed>
