@@ -880,6 +880,19 @@ article header.article-info >p.article-time:before {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+article header.article-info >p.article-updated-time {
+  padding-top: 0.5em;
+  font-size: 0.8em;
+  text-align: center;
+}
+@media only screen and (min-width: 768px) {
+  article header.article-info >p.article-updated-time {
+    float: right;
+    margin-right: 1em;
+    padding-top: 0.5em;
+    font-size: 0.9em;
+  }
+}
 article .article-content {
   padding: 1.5em 4%;
 }

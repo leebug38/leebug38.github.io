@@ -4,7 +4,7 @@
   <subtitle><![CDATA[听潮起又潮落，看花开又花谢]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://leebug38.github.io/"/>
-  <updated>2014-02-08T10:55:05.762Z</updated>
+  <updated>2014-02-08T13:03:07.778Z</updated>
   <id>http://leebug38.github.io/</id>
   
   <author>
@@ -19,7 +19,7 @@
     <link href="http://leebug38.github.io/2014/02/06/%E4%BD%BF%E7%94%A8hexo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/"/>
     <id>http://leebug38.github.io/2014/02/06/使用hexo搭建博客/</id>
     <published>2014-02-06T10:17:12.000Z</published>
-    <updated>2014-02-08T10:51:13.000Z</updated>
+    <updated>2014-02-08T13:02:38.000Z</updated>
     <content type="html"><![CDATA[<p>开始我并没有打算搭建一个博客，只是想找个<em>平台</em>潦草地记录平时遇到的问题，再稍微规划下一些日常事情。最近半年终于干了点计算机工程方面的实事，之前都是水过的，说来实在惭愧。去年暑期实习的时候，我接触到了<em>Python</em>，<em>Git</em>，<em>Node.js</em>以及<em>MongoDB</em>，在此期间用<a href="http://cn.efficientsoftware.net/" target="_blank">高效e人</a>来记录点滴，但总感觉有点不符合程序猿的身份；后来寒假实习遇到了<a href="http://cn0popeye.com/" target="_blank">树上</a>，跟着他后面接触到了一些比较流行的技术，尤其是适合折腾的技术，这段时间学会使用<a href="http://trello.com" target="_blank">trello</a>来管理时间，另外有幸接触到了神的编辑器<em>emacs</em>和标记语言<em>markdown</em>。最近，烦于乱七八糟的记录以及臃肿的chrome书签，加之缺少整理的动力，最终的最终我准备搭建一个博客，以便自己整理总结平时所学所闻，之前也开通过几个BSP<sup><a href="#[1]">[1]</a></sup>类的博客，装饰好后没写一个字，实在没有写的动力；多亏了emacs，最近喜欢折腾一些技术，这次下定决心搭一个独立博客，寻找时发现<a href="http://cn.wordpress.org/" target="_blank">Wordpress</a>挺受人青睐，而且<em>emacs</em>也有很好的插件支持。就在折腾的初始阶段，看各种评论的时候发现了<em>Jekyll+github</em>，进而又邂逅了最终的选择<a href="http://zespia.tw/hexo/" target="_blank">hexo</a>，看到关于<a href="http://zespia.tw/hexo/" target="_blank">hexo</a>的描述时，犹如一股清泉注入心底，怎一个爽字了得！我就是冲着<em>Node.js</em>，<em>Git</em>和写博客神器<em>markdown</em>情定了<a href="http://zespia.tw/hexo/" target="_blank">hexo</a>，当然后来发现<a href="http://zespia.tw/hexo/" target="_blank">hexo</a>中的命令，配置等都封装好了好多技术细节。好了，闲话少说，进入正题，记录下这次博客折腾之旅，也是我的第一篇博客，与有缘人分享！PS：没有详细的教程，只有我参考的文章出处以及我纠结过的坎儿。</p>
 <h1 id="hexo-">hexo是啥</h1>
 <p><a href="http://zespia.tw/hexo/" target="_blank">hexo</a>是一个基于<a href="http://nodejs.org/" target="_blank">Node.js</a>的静态博客程序，我在寻觅博客的时候，发现好多博客都标榜了<strong>静态博客程序</strong>，我的理解就是本地生成了静态html文件，然后再部署到服务器上。由于没有折腾过其他博客，博客直接的差异我也无从比较，只能人云亦云了。关于<a href="http://zespia.tw/hexo/" target="_blank">hexo</a>的特点，出现频率最高的就是：</p>
