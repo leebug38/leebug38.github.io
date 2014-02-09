@@ -2,6 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://leebug38.github.io/about/index.html</loc>
+    <lastmod>2014-02-09T07:56:53.000Z</lastmod>
+  </url>
+  
+  <url>
     <loc>http://leebug38.github.io/2014/02/06/%E4%BD%BF%E7%94%A8hexo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/</loc>
     <lastmod>2014-02-06T10:17:12.000Z</lastmod>
   </url>
@@ -9,11 +14,6 @@
   <url>
     <loc>http://leebug38.github.io/google2805d08f592baf4c.html</loc>
     <lastmod>2014-02-05T11:58:32.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://leebug38.github.io/about/index.html</loc>
-    <lastmod>2014-02-01T13:15:35.000Z</lastmod>
   </url>
   
 </urlset>
