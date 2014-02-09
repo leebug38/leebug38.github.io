@@ -899,7 +899,7 @@ article .article-content {
 article .article-content .kb {
   padding: 0.1em 0.6em;
   border: 1px solid #ccc;
-  background-color: code-color;
+  background-color: #eee;
   color: #8f8f8f;
   -webkit-box-shadow: 0 1px 0 rgba(0,0,0,0.2), 0 0 0 2px #fff inset;
   box-shadow: 0 1px 0 rgba(0,0,0,0.2), 0 0 0 2px #fff inset;
@@ -1000,9 +1000,11 @@ article .article-content p code,
 article .article-content strong code,
 article .article-content em code {
   font-family: Monaco, Menlo, Consolas, Courier New, monospace;
-  background: #eee;
-  color: #747070;
+  background: #e9d1d7;
+  color: #800040;
   padding: 0 5px;
+  -webkit-border-radius: 0.5em;
+  border-radius: 0.5em;
   margin: 0 2px;
   font-size: 90%;
   white-space: nowrap;
@@ -1941,6 +1943,8 @@ footer {
   background: #d3d3d3;
   margin: 0.5em 0;
   padding: 1em 2%;
+  -webkit-border-radius: 0.5em;
+  border-radius: 0.5em;
   overflow: auto;
   color: #1f1f1f;
   line-height: 1.5;
