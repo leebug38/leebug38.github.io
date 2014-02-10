@@ -4,7 +4,7 @@
   <subtitle><![CDATA[听潮起又潮落，看花开又花谢]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://leebug38.github.io/"/>
-  <updated>2014-02-09T13:41:00.343Z</updated>
+  <updated>2014-02-10T05:24:18.599Z</updated>
   <id>http://leebug38.github.io/</id>
   
   <author>
@@ -19,10 +19,10 @@
     <link href="http://leebug38.github.io/2014/02/06/%E4%BD%BF%E7%94%A8hexo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/"/>
     <id>http://leebug38.github.io/2014/02/06/使用hexo搭建博客/</id>
     <published>2014-02-06T10:17:12.000Z</published>
-    <updated>2014-02-09T08:45:59.000Z</updated>
+    <updated>2014-02-10T05:23:06.000Z</updated>
     <content type="html"><![CDATA[<p>开始我并没有打算搭建一个博客，只是想找个<em>平台</em>潦草地记录平时遇到的问题，再稍微规划下一些日常事情。最近半年终于干了点计算机工程方面的实事，之前都是水过的，说来实在惭愧。去年暑期实习的时候，我接触到了<em>Python</em>，<em>Git</em>，<em>Node.js</em>以及<em>MongoDB</em>，在此期间用<a href="http://cn.efficientsoftware.net/" target="_blank">高效e人</a>来记录点滴，但总感觉有点不符合程序猿的身份；后来寒假实习遇到了<a href="http://cn0popeye.com/" target="_blank">树上</a>，跟着他后面接触到了一些比较流行的技术，尤其是适合折腾的技术，这段时间学会使用<a href="http://trello.com" target="_blank">trello</a>来管理时间，另外有幸接触到了神的编辑器<em>emacs</em>和标记语言<em>markdown</em>。最近，烦于乱七八糟的记录以及臃肿的chrome书签，加之缺少整理的动力，最终的最终我准备搭建一个博客，以便自己整理总结平时所学所闻，之前也开通过几个BSP<sup><a href="#[1]">[1]</a></sup>类的博客，装饰好后没写一个字，实在没有写的动力；多亏了emacs，最近喜欢折腾一些技术，这次下定决心搭一个独立博客，寻找时发现<a href="http://cn.wordpress.org/" target="_blank">Wordpress</a>挺受人青睐，而且<em>emacs</em>也有很好的插件支持。就在折腾的初始阶段，看各种评论的时候发现了<em>Jekyll+github</em>，进而又邂逅了最终的选择<a href="http://zespia.tw/hexo/" target="_blank">hexo</a>，看到关于<a href="http://zespia.tw/hexo/" target="_blank">hexo</a>的描述时，犹如一股清泉注入心底，怎一个爽字了得！我就是冲着<em>Node.js</em>，<em>Git</em>和写博客神器<em>markdown</em>情定了<a href="http://zespia.tw/hexo/" target="_blank">hexo</a>，当然后来发现<a href="http://zespia.tw/hexo/" target="_blank">hexo</a>中的命令，配置等都封装好了好多技术细节。好了，闲话少说，进入正题，记录下这次博客折腾之旅，也是我的第一篇博客，与有缘人分享！PS：没有详细的教程，只有我参考的文章出处以及我纠结过的坎儿。</p>
 <h1 id="hexo-">hexo是啥</h1>
-<p><a href="http://zespia.tw/hexo/" target="_blank">hexo</a>是一个基于<a href="http://nodejs.org/" target="_blank">Node.js</a>的静态博客程序，我在寻觅博客的时候，发现好多博客都标榜了<strong>静态博客程序</strong>，我的理解就是本地生成了静态html文件，然后再部署到服务器上。由于没有折腾过其他博客，博客直接的差异我也无从比较，只能人云亦云了。关于<a href="http://zespia.tw/hexo/" target="_blank">hexo</a>的特点，出现频率最高的就是：</p>
+<p><a href="http://zespia.tw/hexo/" target="_blank">hexo</a>是一个基于<a href="http://nodejs.org/" target="_blank">Node.js</a>的静态博客程序，我在寻觅博客的时候，发现好多博客都标榜了<strong>静态博客程序</strong>，我的理解就是本地生成了静态html文件，然后再部署到服务器上。由于没有折腾过其他博客，博客之间的差异我也无从比较，只能人云亦云了。关于<a href="http://zespia.tw/hexo/" target="_blank">hexo</a>的特点，出现频率最高的就是：</p>
 <blockquote>
 <p>快速！简单！可扩展性！</p>
 </blockquote>
@@ -55,7 +55,7 @@
 </li>
 <li>Github与Code School联合提供了一个在线互动教程：<a href="http://try.github.io/levels/1/challenges/1" target="_blank">Try Git</a>。</li>
 <li>进阶篇：<ul>
-<li><a href="http://marklodato.github.io/visual-git-guide/index-zh-cn.html" target="_blank">Git图解</a>，简洁，有事没事可以瞅瞅。</li>
+<li><a href="http://marklodato.github.io/visual-git-guide/index-zh-cn.html" target="_blank">Git图解</a>：简洁，有事没事可以瞅瞅。</li>
 <li><a href="http://www-cs-students.stanford.edu/~blynn/gitmagic/intl/zh_cn/index.html" target="_blank">Git Magic</a>。</li>
 <li><a href="http://think-like-a-git.net" target="_blank">Think like a Git</a>。</li>
 </ul>
@@ -68,7 +68,7 @@
 <li>如果还对加入<a href="http://github.com/" target="_blank">Github</a>犹豫不决，看下<a href="http://www.yangzhiping.com/tech/github.html" target="_blank">如何高效利用Github</a>。</li>
 </ul>
 <h2 id="markdown">Markdown</h2>
-<p>第一次知道Markdown的时候，脑海里突然闪现出<code>.md</code>后缀的文件，典型的如<a href="http://github.com/" target="_blank">Github</a>中仓库的<code>README.md</code>，相见恨晚啊！。后来各种机会跟Markdown碰面，最终也成了我挑选博客的必备条件之一！特点：</p>
+<p>第一次知道Markdown的时候，脑海里突然闪现出N多<code>.md</code>后缀的文件，典型的如<a href="http://github.com/" target="_blank">Github</a>中仓库的<code>README.md</code>，相见恨晚啊！。后来各种机会跟Markdown碰面，最终也成了我挑选博客的必备条件之一！特点：</p>
 <blockquote>
 <p>轻量级标记语言；格式即内容；易读易写；兼容HTML</p>
 </blockquote>
@@ -111,7 +111,7 @@
 </pre></td></tr></table></figure>
 
 <h2 id="-">配置</h2>
-<p>全局配置文件存储在网站根目录下，名为<code>_config.yml</code>，参考上面的文档，尽情配置吧！</p>
+<p>全局配置文件存储在博客根目录下，名为<code>_config.yml</code>，参考上面的文档，尽情配置吧！</p>
 <h2 id="-">主题</h2>
 <p>执行下面的命令拷贝主题包到本地，然后修改<code>_config.yml</code>中的<code>theme</code>项为<code>theme-name</code>。目前已有主题见<a href="http://github.com/tommy351/hexo/wiki/Themes" target="_blank">官方主题</a>。</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre>1
@@ -138,7 +138,7 @@
   branch: master
 </pre></td></tr></table></figure>
 
-<p>需要在<a href="http://github.com/" target="_blank">Github</a>上创建仓库，并且仓库名一定要为<code>username.github.io</code>，<code>username</code>为你的<a href="http://github.com/" target="_blank">Github</a>注册用户名，即二级域名。配置文件中代码仓库<code>URL</code>最好使用<code>https</code>形式的。其实上面的步骤就是布置<a href="http://pages.github.com/" target="_blank">GitHub Pages</a>，我没有使用个性域名，若有其他需求，可以看上面的参考文档以及<a href="http://pages.github.com/" target="_blank">GitHub Pages</a>的<a href="http://help.github.com/categories/20/articles" target="_blank">帮助文档</a>。最后部署到<a href="http://github.com/" target="_blank">Github</a>上：</p>
+<p>需要在<a href="http://github.com/" target="_blank">Github</a>上创建仓库，并且仓库名一定要为<code>username.github.io</code>，<code>username</code>为你的<a href="http://github.com/" target="_blank">Github</a>注册用户名，即二级域名。配置文件中代码仓库<code>URL</code>最好使用<code>https</code>形式的。其实上面的步骤就是布置<a href="http://pages.github.com/" target="_blank">GitHub Pages</a>。我没有使用个性域名，若有其他需求，可以看上面的参考文档以及<a href="http://pages.github.com/" target="_blank">GitHub Pages</a>的<a href="http://help.github.com/categories/20/articles" target="_blank">帮助文档</a>。最后部署到<a href="http://github.com/" target="_blank">Github</a>上：</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre>1
 2
 3
