@@ -4,7 +4,7 @@
   <subtitle><![CDATA[听潮起又潮落，看花开又花谢]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://leebug38.github.io/"/>
-  <updated>2014-02-10T05:24:18.599Z</updated>
+  <updated>2014-02-12T07:55:50.838Z</updated>
   <id>http://leebug38.github.io/</id>
   
   <author>
@@ -13,6 +13,64 @@
   </author>
   
   <generator uri="http://zespia.tw/hexo/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[博客装扮--Pacman主题]]></title>
+    <link href="http://leebug38.github.io/2014/02/11/%E5%8D%9A%E5%AE%A2%E8%A3%85%E6%89%AE--pacman%E4%B8%BB%E9%A2%98/"/>
+    <id>http://leebug38.github.io/2014/02/11/博客装扮--pacman主题/</id>
+    <published>2014-02-11T03:26:55.000Z</published>
+    <updated>2014-02-12T07:53:38.000Z</updated>
+    <content type="html"><![CDATA[<p>人靠衣装，佛靠金装，<a href="http://zespia.tw/hexo/" target="_blank">Hexo</a>如此牛逼的博客，怎能没个让自己看着爽心的主题装扮下呢？<a href="http://zespia.tw/hexo/" target="_blank">Hexo</a>版本<code>2.4+</code>的默认主题是<code>Landscape</code>，看着实在没什么感觉，于是下定决心换一个自己看着爽心的主题。看到<a href="http://yangjian.me" target="_blank">Alimon&#39;s blog</a>后，感觉这个博客的主题不错，尤其是<code>header</code>，<code>footer</code>部分，既然<em>中</em>了，那还等啥，走你！</p>
+<h1 id="pacman-">Pacman简介</h1>
+<p>Pacman是一款为<a href="http://zespia.tw/hexo/" target="_blank">Hexo</a>打造的<em>扁平化</em>，有着<em>响应式</em>设计的主题。<em>扁平化</em>和<em>响应式</em>在如今的手机应用、网页设计领域已是随处可见，「Win8 Metro」和「ios7」就是典型的扁平化设计，简约清晰！前端牛逼框架<a href="http://www.bootcss.com/" target="_blank">Bootstrap</a>也支持响应式设计，使得用户在移动设备上也有很好的体验。Pacman中所有的css都采用<a href="http://learnboost.github.io/stylus/" target="_blank">Stylus</a>编写，自己动手改动也比较方便，不懂前端的我对此深有感触。关于Pacman的更多详细介绍，参见<a href="http://yangjian.me/workspace/introducing-pacman-theme/" target="_blank">《Pacman主题介绍》</a>，安装、设置、更新、配置等都很详细。</p>
+<h1 id="-">小改动</h1>
+<h2 id="-">主题色</h2>
+<p>Pacman默认颜色是<code>#ea6753</code>，蛮有活力的颜色，我本打算直接换一个主题色，但试了好几个，感觉一般。经过了漫无目的地思考与搜索，最后打算结合主题<a href="https://github.com/sun11/hexo-theme-paperbox" target="_blank">paperbox</a>的背景色。有了想法，动手开搞就是水到渠成了，直接贴操作过程：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre>$ vi themes/pacman/<span class="built_in">source</span>/css/_base/variable.styl <span class="comment"># vi仅仅是编辑器</span>
+</pre></td></tr></table></figure>
+
+<p>修改其中的各种<code>颜色代码</code>，可以改变配色方案。我的主题的背景色是一张图片，Pacman代码的组织非常「模块化」，按照其思想，改动如下：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+2
+3
+</pre></td><td class="code"><pre><span class="variable">$ </span>vi themes/pacman/_config.yml  <span class="comment"># 添加background_img: img/noise.png</span>
+  <span class="comment"># 下面文件中在//image位置出添加：background-img = hexo-config("background_img")</span>
+<span class="variable">$ </span>vi themes/pacman/source/css/_base/variable.styl
+</pre></td></tr></table></figure>
+
+<p>接下来的修改中如果需要改成该背景图片颜色，将颜色设置为<code>url(root+background-img)</code>即可。「模块化」的好处就是：接下来你如果有其它背景图片，只需在<code>themes/pacman/_config.yml</code>中修改<code>background_img</code>属性就行了。</p>
+<p>背景色设置成图片后，本着少改动的原则，我将<code>header</code>、<code>footer</code>的主题色设置为<code>transparent</code>，就有了现在的效果。</p>
+<h2 id="hover-">hover配色</h2>
+<p>简而言之，css中<code>:hover</code>伪类作用：在鼠标移到元素上时向此元素添加特殊的样式。我也是这次该主题才涉足css，还是菜鸟中的菜鸟。受益于「模块化」的好处，改动还是比较容易的。改动Pacman的css代码，请进入<code>themes/pacman/source/css/_partial</code>文件夹改动。原先Pacman的鼠标悬停时元素变成「主题色」或者「蓝色」，我统一换成了「红蓝切换」，即巴萨队服的主颜色切换了。PS：一般都是改动<code>&amp;:hover</code>前后代码的<code>color</code>值。</p>
+<h2 id="code-">code样式</h2>
+<p>默认的代码高亮配色感觉不是很搭，Pacman代码高亮使用的是<a href="http://highlightjs.org" target="_blank">highlight.js</a>，我打算参照在<a href="http://highlightjs.org/static/test.html" target="_blank">配色方案</a>中选取一种替代原先的配色，折腾了会不知道如何直接换，最后还是自己手动配色：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre>$ vi themes/pacman/<span class="built_in">source</span>/css/_base/code.styl
+</pre></td></tr></table></figure>
+
+<p>无奈笨拙，只能自己选颜色代码，手动改，以后在琢磨高级的方法。</p>
+<h2 id="-">图片</h2>
+<p>直接替换<code>themes/pacman/source/img</code>中的图片即可，再一次，费了不少心思搞了几张图片替换了。<code>header</code>处原先是<code>.svg</code>格式的图片，我也使用软件「inkscape」转换了，可惜没有达到应有的效果，主要是在IE浏览器中图片还是残了，只能自我安慰「珍爱前端程序员生命，请远离IE」。</p>
+<h2 id="-">其它</h2>
+<p>想法还是挺多的，就是水平受限，其它的改动也不多，主要就是某些组件的排版，代码块背景设成圆角等等。以后边学习，边改动吧。</p>
+<h1 id="-">写在最后</h1>
+<ul>
+<li>Pacman需要安装<a href="http://zespia.tw/hexo/" target="_blank">Hexo</a> 2.4.5 或以上版本</li>
+<li>改网页布局啥的可以使用Chrome的「F12」，各种方便。</li>
+<li>不懂代码没关系，知道改哪里就行了，在折腾过程中，我经常使用全局搜索包含某行代码的文件：<code>find &lt;folder&gt; | xargs grep &quot;目标代码&quot;</code>，然后或者修改，或者参考，还是挺方便的。</li>
+<li>谢谢<a href="http://yangjian.me" target="_blank">yangjian.me</a>，这么好的主题，以及代码。</li>
+<li>我的博客源文件<a href="https://github.com/leebug38/hexo" target="_blank">GitHub地址</a></li>
+<li>以此主题致敬「红蓝巴萨」！</li>
+</ul>
+]]></content>
+    
+    
+      <category term="hexo" scheme="http://leebug38.github.io/tags/hexo/"/>
+    
+      <category term="writing" scheme="http://leebug38.github.io/categories/writing/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[使用hexo搭建博客]]></title>

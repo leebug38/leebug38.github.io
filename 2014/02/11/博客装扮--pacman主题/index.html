@@ -1,0 +1,405 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>博客装扮--Pacman主题 | leebug&#39;s blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="leebug">
+    
+    <meta name="description" itemprop="description" content="人靠衣装，佛靠金装，hexo如此牛逼的博客，怎能没个让自己看着爽心的主题装扮下呢？本博客基于Pacman主题，根据自己需求，做了少量修改，现将这次折腾之旅记录下来。">
+    
+    
+    
+    
+    <link rel="alternative" href="/atom.xml" title="leebug&#39;s blog" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/pacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/pacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      <div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.svg" alt="leebug&#39;s blog" title="leebug&#39;s blog"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="leebug&#39;s blog">leebug&#39;s blog</a></h1>
+				<h2 class="blog-motto">听潮起又潮落，看花开又花谢</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+                    
+						<li><a href="/">首页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li>
+                        <form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+					    	<label>Search</label>
+					    	<input type="search" id="search" autocomplete="off" maxlength="20" placeholder="Search" />
+					    	<input type="hidden" name="q" value="site:leebug38.github.io">
+					    </form>
+                    </li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/02/11/博客装扮--pacman主题/" title="博客装扮--Pacman主题" itemprop="url">博客装扮--Pacman主题</a>
+  </h1>
+  <p class="article-author">By
+    
+      <a href="http://leebug38.github.io" title="leebug">leebug</a>
+    
+  </p>
+  <p class="article-updated-time">
+    最近更新：<time datetime="2014-02-12T07:53:38.000Z" itemprop="dateModified">2月 12 2014</time>
+    
+  </p>
+  <p class="article-time">
+    <time datetime="2014-02-11T03:26:55.000Z" itemprop="datePublished">2月 11 2014</time>
+  </p>
+</header>
+
+	<div class="article-content">
+		
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#pacman-"><span class="toc-number">1.</span> <span class="toc-text">Pacman简介</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#-"><span class="toc-number">2.</span> <span class="toc-text">小改动</span></a></li><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#-"><span class="toc-number">2.1.</span> <span class="toc-text">主题色</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#hover-"><span class="toc-number">2.2.</span> <span class="toc-text">hover配色</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#code-"><span class="toc-number">2.3.</span> <span class="toc-text">code样式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#-"><span class="toc-number">2.4.</span> <span class="toc-text">图片</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#-"><span class="toc-number">2.5.</span> <span class="toc-text">其它</span></a></li></ol><li class="toc-item toc-level-1"><a class="toc-link" href="#-"><span class="toc-number">3.</span> <span class="toc-text">写在最后</span></a></li></ol>
+		</div>
+		
+		<p>人靠衣装，佛靠金装，<a href="http://zespia.tw/hexo/" target="_blank">Hexo</a>如此牛逼的博客，怎能没个让自己看着爽心的主题装扮下呢？<a href="http://zespia.tw/hexo/" target="_blank">Hexo</a>版本<code>2.4+</code>的默认主题是<code>Landscape</code>，看着实在没什么感觉，于是下定决心换一个自己看着爽心的主题。看到<a href="http://yangjian.me" target="_blank">Alimon&#39;s blog</a>后，感觉这个博客的主题不错，尤其是<code>header</code>，<code>footer</code>部分，既然<em>中</em>了，那还等啥，走你！</p>
+<h1 id="pacman-">Pacman简介</h1>
+<p>Pacman是一款为<a href="http://zespia.tw/hexo/" target="_blank">Hexo</a>打造的<em>扁平化</em>，有着<em>响应式</em>设计的主题。<em>扁平化</em>和<em>响应式</em>在如今的手机应用、网页设计领域已是随处可见，「Win8 Metro」和「ios7」就是典型的扁平化设计，简约清晰！前端牛逼框架<a href="http://www.bootcss.com/" target="_blank">Bootstrap</a>也支持响应式设计，使得用户在移动设备上也有很好的体验。Pacman中所有的css都采用<a href="http://learnboost.github.io/stylus/" target="_blank">Stylus</a>编写，自己动手改动也比较方便，不懂前端的我对此深有感触。关于Pacman的更多详细介绍，参见<a href="http://yangjian.me/workspace/introducing-pacman-theme/" target="_blank">《Pacman主题介绍》</a>，安装、设置、更新、配置等都很详细。</p>
+<h1 id="-">小改动</h1>
+<h2 id="-">主题色</h2>
+<p>Pacman默认颜色是<code>#ea6753</code>，蛮有活力的颜色，我本打算直接换一个主题色，但试了好几个，感觉一般。经过了漫无目的地思考与搜索，最后打算结合主题<a href="https://github.com/sun11/hexo-theme-paperbox" target="_blank">paperbox</a>的背景色。有了想法，动手开搞就是水到渠成了，直接贴操作过程：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre>$ vi themes/pacman/<span class="built_in">source</span>/css/_base/variable.styl <span class="comment"># vi仅仅是编辑器</span>
+</pre></td></tr></table></figure>
+
+<p>修改其中的各种<code>颜色代码</code>，可以改变配色方案。我的主题的背景色是一张图片，Pacman代码的组织非常「模块化」，按照其思想，改动如下：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+2
+3
+</pre></td><td class="code"><pre><span class="variable">$ </span>vi themes/pacman/_config.yml  <span class="comment"># 添加background_img: img/noise.png</span>
+  <span class="comment"># 下面文件中在//image位置出添加：background-img = hexo-config("background_img")</span>
+<span class="variable">$ </span>vi themes/pacman/source/css/_base/variable.styl
+</pre></td></tr></table></figure>
+
+<p>接下来的修改中如果需要改成该背景图片颜色，将颜色设置为<code>url(root+background-img)</code>即可。「模块化」的好处就是：接下来你如果有其它背景图片，只需在<code>themes/pacman/_config.yml</code>中修改<code>background_img</code>属性就行了。</p>
+<p>背景色设置成图片后，本着少改动的原则，我将<code>header</code>、<code>footer</code>的主题色设置为<code>transparent</code>，就有了现在的效果。</p>
+<h2 id="hover-">hover配色</h2>
+<p>简而言之，css中<code>:hover</code>伪类作用：在鼠标移到元素上时向此元素添加特殊的样式。我也是这次该主题才涉足css，还是菜鸟中的菜鸟。受益于「模块化」的好处，改动还是比较容易的。改动Pacman的css代码，请进入<code>themes/pacman/source/css/_partial</code>文件夹改动。原先Pacman的鼠标悬停时元素变成「主题色」或者「蓝色」，我统一换成了「红蓝切换」，即巴萨队服的主颜色切换了。PS：一般都是改动<code>&amp;:hover</code>前后代码的<code>color</code>值。</p>
+<h2 id="code-">code样式</h2>
+<p>默认的代码高亮配色感觉不是很搭，Pacman代码高亮使用的是<a href="http://highlightjs.org" target="_blank">highlight.js</a>，我打算参照在<a href="http://highlightjs.org/static/test.html" target="_blank">配色方案</a>中选取一种替代原先的配色，折腾了会不知道如何直接换，最后还是自己手动配色：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre>$ vi themes/pacman/<span class="built_in">source</span>/css/_base/code.styl
+</pre></td></tr></table></figure>
+
+<p>无奈笨拙，只能自己选颜色代码，手动改，以后在琢磨高级的方法。</p>
+<h2 id="-">图片</h2>
+<p>直接替换<code>themes/pacman/source/img</code>中的图片即可，再一次，费了不少心思搞了几张图片替换了。<code>header</code>处原先是<code>.svg</code>格式的图片，我也使用软件「inkscape」转换了，可惜没有达到应有的效果，主要是在IE浏览器中图片还是残了，只能自我安慰「珍爱前端程序员生命，请远离IE」。</p>
+<h2 id="-">其它</h2>
+<p>想法还是挺多的，就是水平受限，其它的改动也不多，主要就是某些组件的排版，代码块背景设成圆角等等。以后边学习，边改动吧。</p>
+<h1 id="-">写在最后</h1>
+<ul>
+<li>Pacman需要安装<a href="http://zespia.tw/hexo/" target="_blank">Hexo</a> 2.4.5 或以上版本</li>
+<li>改网页布局啥的可以使用Chrome的「F12」，各种方便。</li>
+<li>不懂代码没关系，知道改哪里就行了，在折腾过程中，我经常使用全局搜索包含某行代码的文件：<code>find &lt;folder&gt; | xargs grep &quot;目标代码&quot;</code>，然后或者修改，或者参考，还是挺方便的。</li>
+<li>谢谢<a href="http://yangjian.me" target="_blank">yangjian.me</a>，这么好的主题，以及代码。</li>
+<li>我的博客源文件<a href="https://github.com/leebug38/hexo" target="_blank">GitHub地址</a></li>
+<li>以此主题致敬「红蓝巴萨」！</li>
+</ul>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-share" id="share">
+
+  
+<div class="jiathis_style_32x32">
+	<a class="jiathis_button_tsina"></a>
+	<a class="jiathis_button_weixin"></a>
+	<a class="jiathis_button_renren"></a>
+	<a class="jiathis_button_qzone"></a>
+	<a class="jiathis_button_googleplus"></a>
+	<a class="jiathis_button_douban"></a>
+	<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+    var jiathis_config={
+    data_track_clickback:true,
+    sm:"copy,renren,cqq",
+    pic:"",
+    summary:"",
+     ralateuid:{"tsina":"2248842722"},hideMore:false}
+    
+  </script> 
+<script type="text/javascript" src="//v3.jiathis.com/code/jia.js?uid=
+1892581" charset="utf-8"></script>      
+
+
+
+</div>
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/hexo/">hexo</a>
+  </div>
+
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/writing/">writing</a>
+</div>
+
+
+
+</footer>
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2014/02/06/使用hexo搭建博客/"  title="使用hexo搭建博客">
+ <strong>NEXT:</strong><br/> 
+ <span>使用hexo搭建博客
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section class="comment">
+	<div class="ds-thread"></div>
+</section>
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+  <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#pacman-"><span class="toc-number">1.</span> <span class="toc-text">Pacman简介</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#-"><span class="toc-number">2.</span> <span class="toc-text">小改动</span></a></li><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#-"><span class="toc-number">2.1.</span> <span class="toc-text">主题色</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#hover-"><span class="toc-number">2.2.</span> <span class="toc-text">hover配色</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#code-"><span class="toc-number">2.3.</span> <span class="toc-text">code样式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#-"><span class="toc-number">2.4.</span> <span class="toc-text">图片</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#-"><span class="toc-number">2.5.</span> <span class="toc-text">其它</span></a></li></ol><li class="toc-item toc-level-1"><a class="toc-link" href="#-"><span class="toc-number">3.</span> <span class="toc-text">写在最后</span></a></li></ol>
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+			<li><a href="/categories/writing/" title="writing">writing<sup>2</sup></a></li>
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			<li><a href="/tags/Git/" title="Git">Git<sup>1</sup></a></li>
+		
+			<li><a href="/tags/Markdown/" title="Markdown">Markdown<sup>1</sup></a></li>
+		
+			<li><a href="/tags/Node.js/" title="Node.js">Node.js<sup>1</sup></a></li>
+		
+			<li><a href="/tags/hexo/" title="hexo">hexo<sup>2</sup></a></li>
+		
+		</ul>
+</div>
+
+
+  
+  <div class="archiveslist">
+    <p class="asidetitle"><a href="/archives">归档</a></p>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/02">二月 2014</a><span class="archive-list-count">2</span></li></ul>
+  </div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+      <li><a href="http://yangjian.me" target="_blank" title="YangJian">Alimon's Blog</a></li>
+      <li><a href="http://zespia.tw/hexo" target="_blank" title="Hexo">Hexo</a></li>
+    </ul>
+</div>
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello,I&#39;m LiGuozheng. Since 2008 I&#39;ve been a student of NUAA. <br/>
+			Share(Leave) my(your) ideas(advices) at this blog.</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/2248842722" target="_blank" title="weibo"></a>
+		
+		
+		
+		<a href="https://github.com/leebug38" target="_blank" title="github"></a>
+		
+		
+	</div>
+		<p class="copyright">Powered by <a href="http://zespia.tw/hexo/" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/A-limon/pacman" target="_blank" title="Pacman">Pacman</a> © 2014 
+		
+		<a href="http://leebug38.github.io" target="_blank" title="leebug">leebug</a>
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else
+    {
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      h  = $('article h2')
+      ah = $('article h2'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  if(ah.length==0){
+    t.css('display','none');
+  }else{
+    c.click(function(){
+      ta.css('display', 'block').addClass('fadeIn');
+    });
+    o.click(function(){
+      ta.css('display', 'none');
+    });
+    $(window).scroll(function(){
+      ta.css("top",Math.max(140,320-$(this).scrollTop()));
+    });
+  };
+});
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"leebug38"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-47902716-1', 'leebug38.github.io');  
+ga('send', 'pageview');
+</script>
+
+
+  </body>
+</html>
