@@ -4,7 +4,7 @@
   <subtitle><![CDATA[听潮起又潮落，看花开又花谢]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://leebug38.github.io/"/>
-  <updated>2014-02-12T07:55:50.838Z</updated>
+  <updated>2014-02-15T14:42:33.377Z</updated>
   <id>http://leebug38.github.io/</id>
   
   <author>
@@ -19,7 +19,7 @@
     <link href="http://leebug38.github.io/2014/02/11/%E5%8D%9A%E5%AE%A2%E8%A3%85%E6%89%AE--pacman%E4%B8%BB%E9%A2%98/"/>
     <id>http://leebug38.github.io/2014/02/11/博客装扮--pacman主题/</id>
     <published>2014-02-11T03:26:55.000Z</published>
-    <updated>2014-02-12T07:53:38.000Z</updated>
+    <updated>2014-02-14T05:51:47.000Z</updated>
     <content type="html"><![CDATA[<p>人靠衣装，佛靠金装，<a href="http://zespia.tw/hexo/" target="_blank">Hexo</a>如此牛逼的博客，怎能没个让自己看着爽心的主题装扮下呢？<a href="http://zespia.tw/hexo/" target="_blank">Hexo</a>版本<code>2.4+</code>的默认主题是<code>Landscape</code>，看着实在没什么感觉，于是下定决心换一个自己看着爽心的主题。看到<a href="http://yangjian.me" target="_blank">Alimon&#39;s blog</a>后，感觉这个博客的主题不错，尤其是<code>header</code>，<code>footer</code>部分，既然<em>中</em>了，那还等啥，走你！</p>
 <h1 id="pacman-">Pacman简介</h1>
 <p>Pacman是一款为<a href="http://zespia.tw/hexo/" target="_blank">Hexo</a>打造的<em>扁平化</em>，有着<em>响应式</em>设计的主题。<em>扁平化</em>和<em>响应式</em>在如今的手机应用、网页设计领域已是随处可见，「Win8 Metro」和「ios7」就是典型的扁平化设计，简约清晰！前端牛逼框架<a href="http://www.bootcss.com/" target="_blank">Bootstrap</a>也支持响应式设计，使得用户在移动设备上也有很好的体验。Pacman中所有的css都采用<a href="http://learnboost.github.io/stylus/" target="_blank">Stylus</a>编写，自己动手改动也比较方便，不懂前端的我对此深有感触。关于Pacman的更多详细介绍，参见<a href="http://yangjian.me/workspace/introducing-pacman-theme/" target="_blank">《Pacman主题介绍》</a>，安装、设置、更新、配置等都很详细。</p>

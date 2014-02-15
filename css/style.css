@@ -1339,6 +1339,7 @@ footer.article-footer {
   background: #039;
 }
 .article-nav {
+  background: #fafafa;
   padding: 0 10%;
 }
 @media only screen and (min-width: 768px) {
@@ -1355,8 +1356,7 @@ footer.article-footer {
 }
 .article-nav .prev a:hover,
 .article-nav .next a:hover {
-  background: #039;
-  color: #fff;
+  color: #039;
 }
 .article-nav .prev {
   width: 100%;
