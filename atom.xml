@@ -4,7 +4,7 @@
   <subtitle><![CDATA[听潮起又潮落，看花开又花谢]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://leebug38.github.io/"/>
-  <updated>2014-02-15T14:42:33.377Z</updated>
+  <updated>2014-03-07T12:11:50.312Z</updated>
   <id>http://leebug38.github.io/</id>
   
   <author>
@@ -15,11 +15,52 @@
   <generator uri="http://zespia.tw/hexo/">Hexo</generator>
   
   <entry>
+    <title><![CDATA[Android开发--起步]]></title>
+    <link href="http://leebug38.github.io/2014/03/07/android%E5%BC%80%E5%8F%91--%E8%B5%B7%E6%AD%A5/"/>
+    <id>http://leebug38.github.io/2014/03/07/android开发--起步/</id>
+    <published>2014-03-07T01:19:17.000Z</published>
+    <updated>2014-03-07T12:07:21.000Z</updated>
+    <content type="html"><![CDATA[<p>暑假找工作前再学习一个技能，这次坚决不加黄点，来点实在的。考虑自身将来的发展，我一直希望以后的工作围绕<strong>用户体验</strong>，不管是App开发、Web开发，甚至机器学习一类的研究开发，我都希望离用户近点。对于Android开发，我还几乎是零基础，Java也不太会，不过任何学问技术，在精通之前总是相对容易的，只有愿不愿意了！由于某些原因，这次得在windows下先混一段时间了，Go!</p>
+<h1 id="adt-bundle-">ADT-Bundle快速搭建</h1>
+<p>ADT-Bundle是由<a href="http://developer.android.com/index.html" target="_blank">Google Android官方</a>提供的集成式IDE，其中包含了<strong>Eclipse</strong>，你无需再去下载<strong>Eclipse</strong>，并且里面已集成了插件，它解决了大部分新手通过<strong>Eclipse</strong>来配置Android开发环境的复杂问题。</p>
+<h2 id="adt-bundle-">ADT-Bundle下载</h2>
+<p>下载链接：<a href="http://developer.android.com/sdk/index.html" target="_blank">ADT-Bundle下载</a>，我的下载包的文件名为：<code>adt-bundle-windows-x86-20131030.zip</code>，ADT-Bundle包括了开发所需的一切，解压后目录：<img src="/image/directory.PNG" alt="directory"></p>
+<h2 id="-jdk">安装JDK</h2>
+<p>Android开发是基于Java语言、工具和库的，所以得安装Java。现在已经到了JDK 1.7版本，下载链接：<a href="http://www.oracle.com/technetwork/java/javase/downloads/index.html" target="_blank">JDK下载</a>，关于如何安装，配置<code>JAVA_HOME</code>、<code>CLASSPATH</code>、<code>PATH</code>自行<a href="http://www.google.com.hk/" target="_blank">Google</a>之。检测是否配置成功：cmd终端里面<code>java -version</code>,<code>javac -version</code>看结果即可。</p>
+<h2 id="-tools-path">设置Tools PATH</h2>
+<p>为了方便以后在命令行使用Android SDK Tools，可以将<code>&lt;your folder&gt;/android-sdk/tools/</code>和<code>&lt;yobur folder&gt;/android-sdk/platform-tools/</code>两个路径添加到PATH环境变量中，其中<code>&lt;your folder&gt;</code>为你的<code>android-sdk</code>文件夹放置目录。</p>
+<h2 id="sdk-">SDK管理器</h2>
+<p>运行ADT-Bundle下载包的解压根目录下的<code>SDK Manager.exe</code>，进入界面选择需要的Tools以及API等级进行安装或更新。在<strong>Eclipse</strong>中也可以打开，打开过程：Window -&gt; Android SDK Manager。</p>
+<h2 id="-avd">配置AVD</h2>
+<p>AVD（Android Virtual Device），即模拟器，运行在电脑上的安卓虚拟设备，几乎跟一台真正的安卓设备一样。打开Window -&gt; Android Virtual Device Manager，然后<code>New</code>一个，见到下图界面：<img src="/image/avd.PNG" alt="avd">配置完后点击<code>Start</code>启动。</p>
+<h1 id="hello-world">Hello World</h1>
+<p>创建一个Hello World项目，通过File -&gt; New -&gt; Android Application Project，然后输入Hello World（项目名字),一路到底。模拟器调试运行：右击android工程 -&gt; Run as -&gt; Android Application。</p>
+<h1 id="eclipse-emacs">Eclipse + Emacs</h1>
+<p>现在写<strong>Python</strong>和写博客都习惯用<strong>Emacs</strong>编辑器，基本脱离鼠标，全键盘操作。在<strong>Eclipse</strong>里面写了几行代码，感觉不太爽，就到Window -&gt; Preferences -&gt; General -&gt; Keys里面配置快捷键。来来回回的配置+体验，就在那么一瞬间发现了好东西，截图留作纪念：<img src="/image/eclipse_emacs.png" alt="keysSchema">真后悔没早点发现！发现后赶紧<a href="http://www.google.com.hk/" target="_blank">Google</a>，看看有没有更好的<strong>Emacs</strong>配置，后来发现了加强版插件<strong>Emacs+</strong>，也就是上面截图中的选择项了，关于如何安装，很简单，这里给个链接：<a href="http://www.mulgasoft.com/emacsplus" target="_blank">Emacsplus</a>。</p>
+<h1 id="-">回头看看</h1>
+<p>虽然ADT-Bundle这么完善，这样方便了入门，却容易让人不知其所以然，所以建议还是了解下集成的部件是干嘛的，或者看看分步骤配置的过程。最后留几个知识点：</p>
+<ol>
+<li>PATH环境变量：作用是指定命令搜索路径，在命令行下面执行命令如javac编译java程序时，它会到PATH变量所指定的路径中查找看是否能找到相应的命令程序。我们需要把jdk安装目录下的bin目录增加到现有的PATH变量中，bin目录中包含经常要用到的可执行文件如javac/java/javadoc等待，设置好PATH变量后，就可以在任何目录下执行javac/java等工具了。</li>
+<li>CLASSPATH环境变量：作用是指定类搜索路径，要使用已经编写好的类，前提当然是能够找到它们了，JVM就是通过CLASSPATH来寻找类的。我们需要把jdk安装目录下的lib子目录中的dt.jar和tools.jar设置到CLASSPATH中，当然，当前目录“.”也必须加入到该变量中。</li>
+<li>JAVA_HOME环境变量。它指向jdk的安装目录，Eclipse/NetBeans/Tomcat等软件就是通过搜索JAVA_HOME变量来找到并使用安装好的jdk。</li>
+</ol>
+]]></content>
+    
+    
+      <category term="Android" scheme="http://leebug38.github.io/tags/Android/"/>
+    
+      <category term="Eclipse" scheme="http://leebug38.github.io/tags/Eclipse/"/>
+    
+      <category term="Android" scheme="http://leebug38.github.io/categories/Android/"/>
+    
+  </entry>
+  
+  <entry>
     <title><![CDATA[博客装扮--Pacman主题]]></title>
     <link href="http://leebug38.github.io/2014/02/11/%E5%8D%9A%E5%AE%A2%E8%A3%85%E6%89%AE--pacman%E4%B8%BB%E9%A2%98/"/>
     <id>http://leebug38.github.io/2014/02/11/博客装扮--pacman主题/</id>
     <published>2014-02-11T03:26:55.000Z</published>
-    <updated>2014-02-14T05:51:47.000Z</updated>
+    <updated>2014-03-07T12:09:33.000Z</updated>
     <content type="html"><![CDATA[<p>人靠衣装，佛靠金装，<a href="http://zespia.tw/hexo/" target="_blank">Hexo</a>如此牛逼的博客，怎能没个让自己看着爽心的主题装扮下呢？<a href="http://zespia.tw/hexo/" target="_blank">Hexo</a>版本<code>2.4+</code>的默认主题是<code>Landscape</code>，看着实在没什么感觉，于是下定决心换一个自己看着爽心的主题。看到<a href="http://yangjian.me" target="_blank">Alimon&#39;s blog</a>后，感觉这个博客的主题不错，尤其是<code>header</code>，<code>footer</code>部分，既然<em>中</em>了，那还等啥，走你！</p>
 <h1 id="pacman-">Pacman简介</h1>
 <p>Pacman是一款为<a href="http://zespia.tw/hexo/" target="_blank">Hexo</a>打造的<em>扁平化</em>，有着<em>响应式</em>设计的主题。<em>扁平化</em>和<em>响应式</em>在如今的手机应用、网页设计领域已是随处可见，「Win8 Metro」和「ios7」就是典型的扁平化设计，简约清晰！前端牛逼框架<a href="http://www.bootcss.com/" target="_blank">Bootstrap</a>也支持响应式设计，使得用户在移动设备上也有很好的体验。Pacman中所有的css都采用<a href="http://learnboost.github.io/stylus/" target="_blank">Stylus</a>编写，自己动手改动也比较方便，不懂前端的我对此深有感触。关于Pacman的更多详细介绍，参见<a href="http://yangjian.me/workspace/introducing-pacman-theme/" target="_blank">《Pacman主题介绍》</a>，安装、设置、更新、配置等都很详细。</p>
@@ -56,11 +97,11 @@
 <p>想法还是挺多的，就是水平受限，其它的改动也不多，主要就是某些组件的排版，代码块背景设成圆角等等。以后边学习，边改动吧。</p>
 <h1 id="-">写在最后</h1>
 <ul>
-<li>Pacman需要安装<a href="http://zespia.tw/hexo/" target="_blank">Hexo</a> 2.4.5 或以上版本</li>
+<li>Pacman需要安装<a href="http://zespia.tw/hexo/" target="_blank">Hexo</a> 2.4.5 或以上版本。</li>
 <li>改网页布局啥的可以使用Chrome的「F12」，各种方便。</li>
 <li>不懂代码没关系，知道改哪里就行了，在折腾过程中，我经常使用全局搜索包含某行代码的文件：<code>find &lt;folder&gt; | xargs grep &quot;目标代码&quot;</code>，然后或者修改，或者参考，还是挺方便的。</li>
 <li>谢谢<a href="http://yangjian.me" target="_blank">yangjian.me</a>，这么好的主题，以及代码。</li>
-<li>我的博客源文件<a href="https://github.com/leebug38/hexo" target="_blank">GitHub地址</a></li>
+<li>我的博客源文件<a href="https://github.com/leebug38/hexo" target="_blank">GitHub地址</a>。</li>
 <li>以此主题致敬「红蓝巴萨」！</li>
 </ul>
 ]]></content>
