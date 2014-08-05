@@ -4,7 +4,7 @@
   <subtitle><![CDATA[听潮起又潮落，看花开又花谢]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://leebug38.github.io/"/>
-  <updated>2014-05-20T11:58:46.997Z</updated>
+  <updated>2014-08-05T07:44:31.300Z</updated>
   <id>http://leebug38.github.io/</id>
   
   <author>
@@ -13,6 +13,406 @@
   </author>
   
   <generator uri="http://zespia.tw/hexo/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[阿里推荐大赛Season1--(3)]]></title>
+    <link href="http://leebug38.github.io/2014/08/04/%E9%98%BF%E9%87%8C%E6%8E%A8%E8%8D%90%E5%A4%A7%E8%B5%9Bseason1--(3)/"/>
+    <id>http://leebug38.github.io/2014/08/04/阿里推荐大赛season1--(3)/</id>
+    <published>2014-08-04T07:29:29.000Z</published>
+    <updated>2014-08-05T07:43:33.000Z</updated>
+    <content type="html"><![CDATA[<p>接上篇，整理下<em>策略</em>跟<em>LR</em>部分的代码。</p>
+<h1 id="策略预测">策略预测</h1>
+<p>今天在写这篇总结的时候，刚好数据心跳发了一篇他的心路历程<a href="http://www.yumumu.me/Ali_BigData/" target="_blank">《成也solo，败也solo》</a>。他里面提到Season1的时候他靠纯规则刷到<code>7.45%</code>，我还是很佩服的，想想当时我们刷了个半死，才刷到<code>7.11%</code>。对于这个比赛，如果靠规则，那么比的就是天赋、分析能力；如果靠机器学习算法，那么比的就是理论基础、耐心和学习能力。</p>
+<h2 id="暴力存储">暴力存储</h2>
+<p>Season1的数据量不大，基本可以暴力读到内存操作，在使用策略进行预测的时候，我们使用了一种比较暴力、直观的数据结构。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+</pre></td><td class="code"><pre><span class="function"><span class="keyword">def</span> <span class="title">get_date_of_all_action</span><span class="params">(path, start_date, end_date)</span>:</span> <span class="comment"># 可以指定时间段</span>
+    reader = csv.reader(open(path))
+    user_brand = {}
+    <span class="keyword">for</span> user,brand,action,v_date <span class="keyword">in</span> reader:
+        now = get_date(v_date)
+        <span class="keyword">if</span> now &gt;= start_date <span class="keyword">and</span> now &lt; end_date:
+            delta_days = (now - date(<span class="number">2013</span>,<span class="number">4</span>,<span class="number">15</span>)).days
+            user_brand.setdefault(user, {})
+            user_brand[user].setdefault(brand, {<span class="string">'click'</span>: [],
+                                                <span class="string">'buy'</span>: [],
+                                                <span class="string">'fav'</span>: [],
+                                                <span class="string">'cart'</span>: []})
+            <span class="keyword">if</span> action == <span class="string">'0'</span>:
+                user_brand[user][brand][<span class="string">'click'</span>].append(delta_days)
+            <span class="keyword">elif</span> action == <span class="string">'1'</span>:
+                user_brand[user][brand][<span class="string">'buy'</span>].append(delta_days)
+            <span class="keyword">elif</span> action == <span class="string">'2'</span>:
+                user_brand[user][brand][<span class="string">'fav'</span>].append(delta_days)
+            <span class="keyword">elif</span> action == <span class="string">'3'</span>:
+                user_brand[user][brand][<span class="string">'cart'</span>].append(delta_days)
+    <span class="keyword">return</span> user_brand
+</pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="code"><pre><span class="function"><span class="keyword">def</span> <span class="title">get_date_of_all_action_to_brand</span><span class="params">(user_brand)</span>:</span>
+  brand_user = {}
+  <span class="keyword">for</span> user <span class="keyword">in</span> user_brand:
+    <span class="keyword">for</span> item <span class="keyword">in</span> user_brand[user]:
+      brand_user.setdefault(item,{})
+      brand_user[item][user] = user_brand[user][item]
+  <span class="keyword">return</span> brand_user
+</pre></td></tr></table></figure>
+
+<p>大体结构：<code>{u1: {b1: {&#39;click&#39;: [t11,t12,...], &#39;buy&#39;: [t21,t22,...], ...}, ...}, ...}</code>，这样可以任意操作某个(u,b)的历史行为的时间序列（List存储），这里我们把时间转为了距离4月15日那天的天数，天数区间[0, 122]。函数<code>get_date_of_all_action_to_brand</code>仅仅是将u和b的键值关系对调一下，因为某些策略需要着重考虑品牌，这样的结构相对方便一些。</p>
+<h2 id="策略实例">策略实例</h2>
+<p>Season1几乎都在围绕策略做，想了很多策略，效果最好的就是给四种行为一定的权重，再考虑时间衰减因素。除此以外，考虑很多特殊情况，用打补贴的方式添加到最终的预测结果中。比如下面这个看着让人捉急的策略：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+</pre></td><td class="code"><pre><span class="function"><span class="keyword">def</span> <span class="title">get_brand_buy_and_click</span><span class="params">(user_brand)</span>:</span>      <span class="comment"># 传入上面的暴力结构</span>
+    user_buy = {}                             <span class="comment"># 存放预测结果</span>
+    <span class="keyword">for</span> u,b_dict <span class="keyword">in</span> user_brand.items():
+        <span class="keyword">for</span> b,actions <span class="keyword">in</span> b_dict.items():
+            buy_arr = actions[<span class="string">'buy'</span>]
+            click_arr = actions[<span class="string">'click'</span>]
+            <span class="keyword">if</span> buy_arr:
+                last_buy = max(buy_arr)
+                <span class="keyword">if</span> last_buy &gt; <span class="number">105</span>:            <span class="comment"># 最后一次购买在最近半月</span>
+                    user_buy.setdefault(u, set())
+                    user_buy[u].add(b)
+                <span class="keyword">if</span> last_buy &gt; <span class="number">45</span>:
+                    <span class="keyword">if</span> len(set(buy_arr)) &gt;= <span class="number">2</span>:                 <span class="comment"># 在至少两个不同日期购买过</span>
+                        buy_np = np.array(buy_arr, float)
+                        <span class="keyword">if</span> buy_np.var() &gt; <span class="number">6</span>:                   <span class="comment"># 购买的时间序列的方差至少为6</span>
+                            user_buy.setdefault(u, set())
+                            user_buy[u].add(b)
+                <span class="keyword">if</span> click_arr:                 <span class="comment"># 考虑有购买行为(u,b)的点击行为</span>
+                    last_click = max(click_arr)
+                    <span class="keyword">if</span> last_click &gt; last_buy <span class="keyword">and</span> last_click &gt; <span class="number">110</span>:
+                    <span class="comment"># 最后一次购买之后还有点击，并且点击行为的时间是在最近13天</span>
+                        user_buy.setdefault(u, set())
+                        user_buy[u].add(b)
+                    after_buy = [i <span class="keyword">for</span> i <span class="keyword">in</span> click_arr <span class="keyword">if</span> i &gt; last_buy]
+                    <span class="keyword">if</span> len(set(after_buy)) &gt;= <span class="number">3</span>:
+                    <span class="comment"># 最后一次购买后，在至少3个日期再次发生点击行为</span>
+                        after_buy_np = np.array(after_buy, float)
+                        <span class="keyword">if</span> after_buy_np.var() &gt; <span class="number">4</span>:
+                            user_buy.setdefault(u, set())
+                            user_buy[u].add(b)
+    <span class="keyword">return</span> user_buy
+</pre></td></tr></table></figure>
+
+<p>现在想想这些策略，感觉当时的我们想的有点复杂了。</p>
+<h1 id="浅谈LR">浅谈LR</h1>
+<p>跟LR的狗血在之前Season1流水账部分就已经扯过了，这里主要记录下方法。这里再次感谢<a href="http://oilbeater.com/" target="_blank">oilbeater</a>大神的<a href="http://oilbeater.com/%E9%98%BF%E9%87%8C%E5%A4%A7%E6%95%B0%E6%8D%AE%E6%AF%94%E8%B5%9B/2014/04/04/the-bigdata-race-3.html" target="_blank">LR入门</a>，关于LR的简单介绍以及使用的算法包可以参考它。</p>
+<p>在知道原理，又有算法包后，最关键的就是构建训练集跟测试集了。在这个数据集中，训练集由两部分组成：特征＋label，其中label是最后一个月有没有买，买了就标记为1，否则为0。测试集只需要相应的特征就行，根据训练的模型，可以预测某个(u,b)买还是不买。下面我们主要以构造训练集为例：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+</pre></td><td class="code"><pre><span class="function"><span class="keyword">def</span> <span class="title">construct_train</span><span class="params">(out_path, feature, label, user_buy_count, brand_bought_count)</span>:</span>
+    writer = csv.writer(file(out_path, <span class="string">'wb'</span>))
+    n_count = <span class="number">0</span>                       <span class="comment"># 标记负样本(label=0)的序号</span>
+    writer.writerow((<span class="string">'label'</span>,<span class="string">'click_score'</span>,<span class="string">'fav_score'</span>,<span class="string">'cart_score'</span>,
+                     <span class="string">'buy_score'</span>,<span class="string">'u_count'</span>,<span class="string">'b_count'</span>))
+    <span class="keyword">for</span> u,b_dict <span class="keyword">in</span> feature.items():
+        u_count = user_buy_count.get(u, <span class="number">0</span>)
+        <span class="keyword">for</span> b,f_arr <span class="keyword">in</span> b_dict.items():
+            b_count = brand_bought_count.get(b, <span class="number">0</span>)
+            <span class="keyword">if</span> (u,b) <span class="keyword">in</span> label:
+                writer.writerow((<span class="number">1</span>, f_arr[<span class="number">0</span>], f_arr[<span class="number">1</span>], f_arr[<span class="number">2</span>], f_arr[<span class="number">3</span>],
+                                 u_count, b_count))
+            <span class="keyword">else</span>:
+                n_count += <span class="number">1</span>
+                <span class="keyword">if</span> n_count % <span class="number">120</span> == <span class="number">0</span>:        <span class="comment"># 类似于对负样本抽样，按模抽样</span>
+                    writer.writerow((<span class="number">0</span>, f_arr[<span class="number">0</span>], f_arr[<span class="number">1</span>], f_arr[<span class="number">2</span>], f_arr[<span class="number">3</span>],
+                                     u_count, b_count))
+</pre></td></tr></table></figure>
+
+<p>这里，feature是一个字典，结构：<code>{u1: {b1: [v1,v2,v3,v4], ...}, ...}</code>，List<code>[v1,v2,v3,v4]</code>表示四种行为的时间衰减评分（代码省略），这样有了feature后，也就有了有行为(u,b)的基本的四个特征。label是一个元组集合，即最后一个月有购买行为的(u,b)对集合。<code>user_buy_count</code>表示用户购买的品牌数，结构：<code>{u1: {b1: b1_count, ...}, ...}</code>；<code>brand_bought_count</code>表示品牌被购买的用户数，结构类似于<code>user_buy_count</code>，提取这两个特征的代码也省略。</p>
+<p>Season1的LR中，我们就用了6个特征配合欠采样。当时由于时间关系，对LR的理解也不够深入，加上对特征也没放开手脚去提取，Season1的成绩也没有更进一步的提高，不过为Season2一开始琢磨LR铺平了道路。</p>
+<h1 id="写在Season1最后">写在Season1最后</h1>
+<p>官方设置Season1的目的应该是让我们入门、让我们熟悉数据，并非让我们尝试牛逼的算法，从这层目的来说，我们基本达到了要求。到Season2时，数据量大了，算法的威力基本就会显现出来，当时我们握着仅有的算法利器<em>LR</em>……</p>
+]]></content>
+    
+    
+      <category term="AliBigData" scheme="http://leebug38.github.io/tags/AliBigData/"/>
+    
+      <category term="Python" scheme="http://leebug38.github.io/tags/Python/"/>
+    
+      <category term="Recommender" scheme="http://leebug38.github.io/tags/Recommender/"/>
+    
+      <category term="AliBigData" scheme="http://leebug38.github.io/categories/AliBigData/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[阿里推荐大赛season1--(2)]]></title>
+    <link href="http://leebug38.github.io/2014/07/31/%E9%98%BF%E9%87%8C%E6%8E%A8%E8%8D%90%E5%A4%A7%E8%B5%9Bseason1--(2)/"/>
+    <id>http://leebug38.github.io/2014/07/31/阿里推荐大赛season1--(2)/</id>
+    <published>2014-07-31T14:31:31.000Z</published>
+    <updated>2014-08-05T07:24:24.000Z</updated>
+    <content type="html"><![CDATA[<p>早在去年暑假在<a href="http://58.214.255.186:3000/" target="_blank">无锡为立</a>实习的时候，我就接触到了<em>推荐系统</em>相关知识，那时候把<a href="http://book.douban.com/subject/10769749/" target="_blank">《推荐系统实践》</a>一书研究了下，并照着实现了大部分算法，尤其是其中的<em>协同过滤</em>跟<em>LFM</em>模型，也是在那个时候接触到了Python。</p>
+<p>这次比赛开始，我们就确定使用Python作为第一阶段的开发语言，因为方便直观，上手快，开发效率高。Season1前前后后，算上一些垃圾代码，一万行代码还是有的。仅以此文纪念我们曾经写过的Python代码，由于代码贴的有点多，我就分成了两篇文章。</p>
+<h1 id="Teamwork">Teamwork</h1>
+<p>比赛开始第一天，我就兴冲冲地构建了本地代码仓库，又因为酷酷宇在东南大学，为了远程协作方便，我在<a href="http://bitbucket.org" target="_blank">Bitbucket</a>搭建了远程代码库，这些都是基于<a href="http://git-scm.com/" target="_blank">Git</a>。后来由于另外两个人对这些不太熟悉，就退而求其次地使用<a href="https://www.dropbox.com" target="_blank">Dropbox</a>作为团队合作的工具了。仅以下图纪念下我维护过的远程代码仓库：<img src="/image/bitbucket.png" alt="Bitbucket_pic"></p>
+<h1 id="轻松开好头">轻松开好头</h1>
+<p>不管是Season1还是Season2我们基本在开始前两天就搞定本地准备工作，其中最重要的当属构建本地训练、预测框架。</p>
+<h2 id="简单处理">简单处理</h2>
+<p>原始数据的时间列是中文日期格式，利用正则先转成可处理的日期格式，假设数据是2013年的。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+</pre></td><td class="code"><pre><span class="function"><span class="keyword">def</span> <span class="title">get_date</span><span class="params">(origin_date)</span>:</span>
+    month_day = re.findall(<span class="string">r"[\d|.]+"</span>, origin_date)
+    month = int(month_day[<span class="number">0</span>])
+    day = int(month_day[<span class="number">1</span>])
+    <span class="keyword">return</span> date(<span class="number">2013</span>, month, day)
+</pre></td></tr></table></figure>
+
+<p>Season1开始两次线上测试是一个星期测试一次，后来改为了一天一测。在线上测试机会不多的时候，我们就得做好线下测试的工作。这次比赛很明显跟时间挂钩的，我们假定4个月的数据是5/6/7/8四个月，那么本地测试的时候，就用8月份（当时是用［7-15，8-15］）有购买行为的(u,b)来测试本地训练预测的效果。下面代码可以获取8月份有购买行为的(u,b)对，并保存在字典<code>test</code>中。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre></td><td class="code"><pre><span class="function"><span class="keyword">def</span> <span class="title">load_test_set</span><span class="params">(data_path)</span>:</span>
+    reader = csv.reader(open(data_path))    <span class="comment"># 使用python的csv模块</span>
+    test = {}
+    <span class="keyword">for</span> user,brand,action,r_date <span class="keyword">in</span> reader:
+        now = get_date(r_date)
+        <span class="keyword">if</span> now &gt;= date(<span class="number">2013</span>,<span class="number">7</span>,<span class="number">15</span>) <span class="keyword">and</span> now &lt;= date(<span class="number">2013</span>,<span class="number">8</span>,<span class="number">15</span>) <span class="keyword">and</span> action = <span class="string">'1'</span>:
+            test.setdefault(user, set())
+            test.get(user).add(brand)
+    <span class="keyword">return</span> test
+</pre></td></tr></table></figure>
+
+<h2 id="本地评估">本地评估</h2>
+<p>有了本地测试集<code>test</code>后，我们就很容易计算本地的准确率、召回率以及F1评分了。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+</pre></td><td class="code"><pre><span class="function"><span class="keyword">def</span> <span class="title">precision</span><span class="params">(predict, test)</span>:</span>
+    hit = <span class="number">0</span>
+    total = <span class="number">0</span>
+    <span class="keyword">for</span> user,p_items <span class="keyword">in</span> predict.items():
+        test_items = test.get(user, <span class="string">''</span>)
+        <span class="keyword">if</span> test_items:
+            <span class="keyword">for</span> item <span class="keyword">in</span> p_items:
+            <span class="keyword">if</span> item <span class="keyword">in</span> test_items:
+                hit += <span class="number">1</span>
+        total += len(p_items)
+    <span class="keyword">return</span> hit / (total * <span class="number">1.0</span>)
+</pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+</pre></td><td class="code"><pre><span class="function"><span class="keyword">def</span> <span class="title">recall</span><span class="params">(predict, test)</span>:</span>
+    hit = <span class="number">0</span>
+    total = <span class="number">0</span>
+    <span class="keyword">for</span> user,t_items <span class="keyword">in</span> test.items():
+        pred_items = predict.get(user, <span class="string">''</span>)
+        <span class="keyword">if</span> pred_items:
+            <span class="keyword">for</span> item <span class="keyword">in</span> t_items:
+                <span class="keyword">if</span> item <span class="keyword">in</span> pred_items:
+                    hit += <span class="number">1</span>
+        total += len(t_items)
+    <span class="keyword">return</span> hit / (total * <span class="number">1.0</span>)
+</pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+</pre></td><td class="code"><pre><span class="function"><span class="keyword">def</span> <span class="title">f1_score</span><span class="params">(P, R)</span>:</span>
+    <span class="keyword">if</span> P == <span class="number">0</span> <span class="keyword">and</span> R == <span class="number">0</span>:
+        <span class="keyword">return</span> <span class="number">0</span>
+    <span class="keyword">return</span> (<span class="number">2</span> * P * R) / (P + R)
+</pre></td></tr></table></figure>
+
+<p>其中，<code>predict</code>跟<code>test</code>是一样的数据结构：<code>{u1: set(), u2: set(), ...}</code>，用集合可以方便去除重复。</p>
+<h2 id="结果提交">结果提交</h2>
+<p>最终提交结果时，是需要写到一个txt文件里面，并且遵循<a href="http://102.alibaba.com/competition/addDiscovery/gameTopic.htm" target="_blank">官方要求格式</a>，下面函数将上面的<code>predict</code>写入到指定文件<code>file_path</code>中。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="code"><pre><span class="function"><span class="keyword">def</span> <span class="title">write_into_file</span><span class="params">(predict, file_path)</span>:</span>
+    out = file(file_path, <span class="string">'w'</span>)
+    <span class="keyword">for</span> user,buy_set <span class="keyword">in</span> predict.items():
+        row = <span class="string">'%s\t'</span> % user
+        row += (<span class="string">','</span>.join(buy_set))
+        out.write(<span class="string">'%s\n'</span> % row)
+    out.close()
+</pre></td></tr></table></figure>
+
+<h1 id="画图分析">画图分析</h1>
+<p>在进行数据分析时，数据可视化无疑可以提高效率，帮助发现蕴含在数据内部的规律。为了保持语言的一致，我们使用了python的<em>Matplotlib</em>模块。后来发现，我们当时有点耿直了，完全可以使用其他画图软件，而且画图没有给我们带来实质性的帮助，使用<em>Matplotlib</em>画图对我们来说是一次性价比不高的选择。Anyway，贴上几个当时我们参考的教程：</p>
+<ul>
+<li><a href="http://matplotlib.org/users/pyplot_tutorial.html" target="_blank">官方手册</a></li>
+<li><a href="http://www.loria.fr/~rougier/teaching/matplotlib/#quick-references" target="_blank">快速入门（英文）</a></li>
+<li><a href="http://reverland.org/python/2012/09/07/matplotlib-tutorial/" target="_blank">快速入门（中文）</a></li>
+</ul>
+<p>我们当时对四种行为每个月的分布、每个用户123天的行为分布、本地能命中的(u,b)的历史行为分布等等都画图进行了分析。比如下图：<img src="/image/hit.png" alt="hit_picture">就是某个本地能命中的(u,b)，红圈表示点击，蓝方块表示购买，紫三角表示收藏。为了批量画图方便，我们没有统一坐标轴比例跟长度，也没有画上图标解释。</p>
+<h1 id="未完待续">未完待续</h1>
+<p>这篇简单介绍一些准备工作，下一篇记录下我们曾经做过的<em>策略</em>跟<em>LR</em>。</p>
+]]></content>
+    
+    
+      <category term="AliBigData" scheme="http://leebug38.github.io/tags/AliBigData/"/>
+    
+      <category term="Python" scheme="http://leebug38.github.io/tags/Python/"/>
+    
+      <category term="Recommender" scheme="http://leebug38.github.io/tags/Recommender/"/>
+    
+      <category term="AliBigData" scheme="http://leebug38.github.io/categories/AliBigData/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[阿里推荐大赛Season1--(1)]]></title>
+    <link href="http://leebug38.github.io/2014/07/31/%E9%98%BF%E9%87%8C%E6%8E%A8%E8%8D%90%E5%A4%A7%E8%B5%9Bseason1--(1)/"/>
+    <id>http://leebug38.github.io/2014/07/31/阿里推荐大赛season1--(1)/</id>
+    <published>2014-07-31T12:19:23.000Z</published>
+    <updated>2014-08-05T07:31:07.000Z</updated>
+    <content type="html"><![CDATA[<p>今天是2014年7月31日，四个月的比赛已经落下帷幕，期间主要是论文加上老师的项目烦心，不然Season1的总结早就该出炉了（借口）！这个比赛比较适合我，因为比赛时间跨度久，更多比的是毅力和些许学习能力，报名参加的时候我就预料到了比赛结束时的满足感，成绩确实是意外之喜。因为比赛我的安卓计划搁浅了；因为比赛我Emacs有点生疏了；因为比赛我貌似又变瘦了……</p>
+<h1 id="比赛简介">比赛简介</h1>
+<p>详细的比赛介绍可以看<a href="http://102.alibaba.com/competition/addDiscovery/gameIntroduce.htm" target="_blank">官方网页</a>。这里提几个关键词：</p>
+<blockquote>
+<p>预测购买；品牌粒度；准确率；召回率；F1评分；</p>
+</blockquote>
+<h1 id="关于队名">关于队名</h1>
+<p>记得当时因为懂点<em>推荐系统</em>的知识，果断拉上酷酷宇跟寝室死胖子报名了。我们本科一个班的，402班，当时想队名的时候，感觉402好突兀，于是乎我瞄了一眼旁边的魅族手机，瞬间决定了队名<em>Fly402</em>。</p>
+<h1 id="流水帐">流水帐</h1>
+<h2 id="第一次提交">第一次提交</h2>
+<p>四个月后的今天，对于Season1的好多细节已经淡忘。记得当时第一天我就祭出了之前写的<em>协同过滤</em>算法，跑了个结果，兴冲冲的等第二天的结果。第二天结果出来了：准确率<code>0.90%</code>，召回率<code>0.60%</code>，得分<code>0.72%</code>，当天排名<code>368</code>，看到结果，一脸失望，心里嘀咕：这算法没搞错吧！其实，只是：</p>
+<blockquote>
+<p>这次比赛是预测用户第五个月是否会购买，而不是给用户推荐物品；用户行为是很难琢磨的；Season1数据量太小，很难体现相关性！</p>
+</blockquote>
+<h2 id="恍然大悟">恍然大悟</h2>
+<p>有了第一次的结果，加之我们的分析，很快就发现了这不是普通的<em>推荐</em>。并且迅速理清了大方向：这个比赛得分成两部分来做，预测用户历史行为接触过的品牌以及预测用户历史行为中没有接触过的品牌，后面称为交互和未交互。协同过滤其实是侧重预测未交互的部分，既然第一次效果不行，暂且尝试下交互的那部分。接下来的几天围绕着<em>策略</em>展开，比如：用户4个月购买过的，给(u,b)按照一定的时间衰减、行为权重评分再预测等等。就这样，我们的成绩基本在正常轨道，F1评分差不多达到<code>6.5%</code>左右。4月1日之后，我们的策略越做越复杂，这个时候会考虑(u,b)购买时间序列的方差，会考虑(u,b)最后一次购买之后的行为，会考虑(u,b)没有购买行为等等。在结合很多复杂的策略后，我们的成绩慢慢地往上爬，一直爬到<code>7.11%</code>，真的很不容易！</p>
+<p>做策略的这段时间很痛苦，没有太大的成就感，但是为了提高成绩，还是硬着头皮往下做，我们甚至画出了本地最后一个月命中的(u,b)的行为序列图，一张张看，寻找其中的规律。Season2时发现其实这是一笔宝贵的财富，方便了我们构造特征！</p>
+<h2 id="错过与相遇">错过与相遇</h2>
+<blockquote>
+<p>每一次的错过，都是为了下一次的相遇。但有时候或许失去了，也就不会再回头。</p>
+</blockquote>
+<p>这句话念全了有点悲伤，还好我们跟LR（逻辑回归）的缘分只要用前半句就够了。怎讲？比赛开始没有几天，根据比赛论坛上别人的经验，我们就锁定了预测交互部分的算法：<em>逻辑回归</em>。当时，凭借着我对训练集的理解，在我那本红色封面的本子的最后一页上构造了(u,b)的训练集，而这个训练集跟之后4个月一直使用的训练集是一致的！可是当时构造完了之后，我提取了几个特征，用python画图一看，傻眼了，负样本比正样本多太多了，直观上就是<em>不可分</em>的。当时先搁浅了几天，后面想了想，感觉这个应该是有解决方案的，果断去论坛发帖问<a href="http://bbs.aliyun.com/read/155212.html?spm=0.0.0.0.GO9WzZ" target="_blank">如何构造LR训练集</a>，答案是<em>采样</em>！</p>
+<h1 id="错过">错过</h1>
+<p>那段时间虽然一直使用策略提交预测结果，但也一直琢磨如何使用LR，想法基本有了，开头还是很难的，主要当时不知道去求助算法包，又懒得自己实现。直到好人<a href="http://oilbeater.com/" target="_blank">oilbeater</a>发了一篇<a href="http://oilbeater.com/%E9%98%BF%E9%87%8C%E5%A4%A7%E6%95%B0%E6%8D%AE%E6%AF%94%E8%B5%9B/2014/04/04/the-bigdata-race-3.html" target="_blank">LR入门</a>，我才动手了，那时已经4月8日了，<em>欠采样</em>配合6个特征跑了一个LR预测结果提交了，第二天一看成绩：<code>2.17%</code>，好吧，残了！本以为就这样错过LR了。</p>
+<h1 id="相遇">相遇</h1>
+<p>转眼4月17日了，Season1快结束了，我们靠策略进入Season2应该问题不大。但是没有用算法解决问题始终让我不爽，最终那次美丽的相遇如期而至！那天我把我的半成品LR甩给了酷酷宇，让他尝试下，打算再提交一次LR预测的结果，那次他把我采样mod那个数换了，也就是换了采样比例，提交了一个预测结果。第二天凌晨4点多，像往常一样醒了，看了下成绩<code>7.02%</code>！当时兴奋的，直接给酷酷宇发了N条短信，把他狂赞一番。算法的神奇带来的快感，你懂的！</p>
+<h2 id="定格">定格</h2>
+<p>最终，我们使用LR结合策略，F1评分定格在<code>7.31%</code>。距离前面的牛人还有一段距离，但是我们已经很满足了。</p>
+<h1 id="总结">总结</h1>
+<p>关于Season1的大体过程就如同上面的流水帐，总的来说：</p>
+<ul>
+<li>参加比赛是兴趣驱动</li>
+<li>坚持不懈才是王道</li>
+<li>基础不行，有点捉急</li>
+<li>热身而已，入门就行</li>
+</ul>
+]]></content>
+    
+    
+      <category term="AliBigData" scheme="http://leebug38.github.io/tags/AliBigData/"/>
+    
+      <category term="Recommender" scheme="http://leebug38.github.io/tags/Recommender/"/>
+    
+      <category term="AliBigData" scheme="http://leebug38.github.io/categories/AliBigData/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[Android开发--起步]]></title>
