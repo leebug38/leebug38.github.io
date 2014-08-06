@@ -4,7 +4,7 @@
   <subtitle><![CDATA[听潮起又潮落，看花开又花谢]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://leebug38.github.io/"/>
-  <updated>2014-08-05T07:44:31.300Z</updated>
+  <updated>2014-08-06T11:45:21.677Z</updated>
   <id>http://leebug38.github.io/</id>
   
   <author>
@@ -366,7 +366,7 @@
     <link href="http://leebug38.github.io/2014/07/31/%E9%98%BF%E9%87%8C%E6%8E%A8%E8%8D%90%E5%A4%A7%E8%B5%9Bseason1--(1)/"/>
     <id>http://leebug38.github.io/2014/07/31/阿里推荐大赛season1--(1)/</id>
     <published>2014-07-31T12:19:23.000Z</published>
-    <updated>2014-08-05T07:31:07.000Z</updated>
+    <updated>2014-08-06T11:44:42.000Z</updated>
     <content type="html"><![CDATA[<p>今天是2014年7月31日，四个月的比赛已经落下帷幕，期间主要是论文加上老师的项目烦心，不然Season1的总结早就该出炉了（借口）！这个比赛比较适合我，因为比赛时间跨度久，更多比的是毅力和些许学习能力，报名参加的时候我就预料到了比赛结束时的满足感，成绩确实是意外之喜。因为比赛我的安卓计划搁浅了；因为比赛我Emacs有点生疏了；因为比赛我貌似又变瘦了……</p>
 <h1 id="比赛简介">比赛简介</h1>
 <p>详细的比赛介绍可以看<a href="http://102.alibaba.com/competition/addDiscovery/gameIntroduce.htm" target="_blank">官方网页</a>。这里提几个关键词：</p>
@@ -394,7 +394,7 @@
 <h1 id="相遇">相遇</h1>
 <p>转眼4月17日了，Season1快结束了，我们靠策略进入Season2应该问题不大。但是没有用算法解决问题始终让我不爽，最终那次美丽的相遇如期而至！那天我把我的半成品LR甩给了酷酷宇，让他尝试下，打算再提交一次LR预测的结果，那次他把我采样mod那个数换了，也就是换了采样比例，提交了一个预测结果。第二天凌晨4点多，像往常一样醒了，看了下成绩<code>7.02%</code>！当时兴奋的，直接给酷酷宇发了N条短信，把他狂赞一番。算法的神奇带来的快感，你懂的！</p>
 <h2 id="定格">定格</h2>
-<p>最终，我们使用LR结合策略，F1评分定格在<code>7.31%</code>。距离前面的牛人还有一段距离，但是我们已经很满足了。</p>
+<p>最终，我们使用LR结合策略，Season1最终F1评分定格在<code>7.31%</code>，成绩排名<code>62</code>。距离前面的牛人还有一段距离，但是我们已经很满足了。</p>
 <h1 id="总结">总结</h1>
 <p>关于Season1的大体过程就如同上面的流水帐，总的来说：</p>
 <ul>
